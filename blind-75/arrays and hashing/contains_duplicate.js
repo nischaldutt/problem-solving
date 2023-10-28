@@ -4,10 +4,6 @@
  * @param {number[]} nums
  * @return {boolean}
  */
-
-// time: O(n)
-// space: O(n)
-
 var containsDuplicate = function (nums) {
   if (nums.length === 1) return false;
 
