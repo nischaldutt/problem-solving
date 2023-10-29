@@ -12,12 +12,11 @@ var twoSum = function (nums, target) {
   for (let i = 0; i < len; i++) {
     const currentValue = nums[i];
     const neededValue = target - currentValue;
-    const index2 = myMap.get(neededValue);
 
-    if (index2 === undefined) {
+    if (myMap.get(neededValue) === undefined) {
       myMap.set(currentValue, i);
     } else {
-      return [index2, i];
+      return [myMap.get(neededValue), i];
     }
   }
 
