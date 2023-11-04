@@ -1,4 +1,14 @@
-//problem: https://leetcode.com/problems/3sum/
+// problem: https://leetcode.com/problems/3sum/
+
+/*
+    Given int array, return all unique triplets that sum to 0
+    Ex. nums = [-1,0,1,2,-1,-4] -> [[-1,-1,2],[-1,0,1]]
+
+    Sort, for each i, have j & k go outside in, check for 0 sums
+
+    Time: O(n^2)
+    Space: O(n)
+*/
 
 #include <bits/stdc++.h>
 
@@ -26,7 +36,7 @@ vector<vector<int>> threeSum(vector<int> &nums) {
   if(len < 3) return results;
 
   sort(nums.begin(), nums.end());
-  
+
   for(int i=0;i<len;i++) {
     if(i > 0 && nums[i] == nums[i-1]) continue;
 
