@@ -1,0 +1,10 @@
+{
+  "editor.tabSize": 2,
+  "files.associations": {
+    "unordered_map": "cpp",
+    "map": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "vector": "cpp"
+  }
+}
