@@ -5,6 +5,8 @@
     "map": "cpp",
     "deque": "cpp",
     "string": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "set": "cpp",
+    "unordered_set": "cpp"
   }
 }
