@@ -1,5 +1,11 @@
 // problem: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 
+/*
+ * @lc app=leetcode id=153 lang=cpp
+ *
+ * [153] Find Minimum in Rotated Sorted Array
+ */
+
 #include <bits/stdc++.h>
 
 #include <cstring>
