@@ -1,5 +1,12 @@
 // problem: https://leetcode.com/problems/search-in-rotated-sorted-array/
 
+/*
+  *find index of an element in a rotated sorted array
+  * input: enter array length: 8
+  * 11 12 15 18 2 5 6 8
+  * output: 2
+  * time complexity: O(logn) + O(logn) + O(logn) = O(logn)
+*/ 
 
 #include <bits/stdc++.h>
 
