@@ -1,4 +1,14 @@
-// problem: 
+// problem: https://leetcode.com/problems/reverse-linked-list/
+
+/*
+    Given the head of a singly linked list, reverse list & return
+    Ex. head = [1,2,3,4,5] -> [5,4,3,2,1], head = [1,2] -> [2,1]
+
+    Maintain prev, curr pointers, iterate thru & reverse
+
+    Time: O(n)
+    Space: O(1)
+*/
 
 #include <bits/stdc++.h>
 
