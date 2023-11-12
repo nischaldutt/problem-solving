@@ -53,10 +53,9 @@ void printLinkedList(ListNode*& head) {
 
 ListNode* reverseList(ListNode* head) {
   if(head == NULL || head->next == NULL) return head;
-  ListNode* prev = NULL;
   ListNode* ptr = reverseList(head->next);
   head->next->next = head;
-  head->next=prev;
+  head->next=NULL;
   return ptr;
 }
 
