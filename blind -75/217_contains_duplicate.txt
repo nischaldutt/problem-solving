@@ -1,0 +1,33 @@
+cpp solution =>
+
+class Solution {
+public:
+  bool containsDuplicate(vector<int>& nums) {
+    if (nums.size() == 1) return false;
+
+    unordered_map<int, int> myMap;
+    for (int x: nums) {
+      if (myMap[x]) return true;
+      else myMap[x]++;
+    }
+    return false;
+  }
+};
+
+js solutions =>
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function(nums) {
+  if(nums.lenght === 1) return false;
+
+  const obj = {};
+  for(let x of nums) {
+    if(obj[x] !== undefined) return true;
+    else if(obj[x] === undefined) obj[x] = 1;
+    else obj[x]++;
+  }
+  return false;
+};
