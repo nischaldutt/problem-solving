@@ -1,0 +1,49 @@
+cpp =>
+
+class Solution {
+public:
+  vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    unordered_map<string, vector<string>> myMap;
+
+    for(string s: strs) {
+      vector<int> countVector(26, 0);
+      for(char c: s) countVector[int(c) - int('a')]++;
+
+      string hash = "";
+      for(int n: countVector) hash += to_string(n) + "#";
+
+      myMap[hash].push_back(s);
+    }
+
+    vector<vector<string>> result;
+    unordered_map<string, vector<string>>::iterator key;
+
+    for(key=myMap.begin();key!=myMap.end();key++) result.push_back(key->second);
+    return result;
+  }
+};
+
+js => 
+
+/**
+* @param {string[]} strs
+* @return {string[][]}
+*/
+var groupAnagrams = function(strs) {
+  const obj = {};
+
+  for(const s of strs) {
+    const countArray = new Array(26).fill(0);
+    for(const c of s) countArray[c.charCodeAt(0) - 'a'.charCodeAt(0)]++;
+
+    let hash = "";
+    for(const n of countArray) hash += n + "#";
+
+    if(obj[hash] === undefined) obj[hash] = [s];
+    else obj[hash].push(s);
+  }
+
+  const result = [];
+  for(const key in obj) result.push(obj[key]);
+  return result;
+};
