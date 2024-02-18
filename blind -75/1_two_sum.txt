@@ -1,0 +1,49 @@
+cpp =>
+
+class Solution {
+public:
+  vector<int> twoSum(vector<int>& nums, int target) {
+    vector<int> result;
+    unordered_map<int, int> myMap;
+    int len = nums.size();
+
+    for (int i = 0; i < len; i++) {
+      int curr = nums[i];
+      int needed = target - curr;
+
+      if (myMap.find(needed) == myMap.end()) myMap[curr] = i;
+      else {
+        result.push_back(i);
+        result.push_back(myMap[needed]);
+        return result;
+      }
+    }
+    return result;
+  }
+};
+
+js =>
+
+/**
+* @param {number[]} nums
+* @param {number} target
+* @return {number[]}
+*/
+var twoSum = function(nums, target) {
+  const result = [];
+  const obj = {};
+  const len = nums.length;
+
+  for(let i=0;i<len;i++) {
+    const curr = nums[i];
+    const needed = target - curr;
+
+    if(obj[needed] === undefined) obj[curr] = i;
+    else {
+      result.push(i);
+      result.push(obj[needed])
+      return result;
+    } 
+  }
+  return result;
+};
