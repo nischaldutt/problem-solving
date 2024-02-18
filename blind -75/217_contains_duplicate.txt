@@ -1,4 +1,4 @@
-cpp solution =>
+cpp =>
 
 class Solution {
 public:
@@ -14,7 +14,7 @@ public:
   }
 };
 
-js solutions =>
+js =>
 
 /**
  * @param {number[]} nums
