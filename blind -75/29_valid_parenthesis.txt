@@ -1,0 +1,57 @@
+// C++ Solution
+
+class Solution {
+public:
+  bool isValid(string s) {
+    int len = s.size();
+    if((len % 2) != 0) return false;
+    
+    unordered_map<char, char> myMap = {
+      { ')', '(' },
+      { ']', '[' },
+      { '}', '{' }
+    };
+    stack<char> myStack;
+    int i = 0;
+
+    while(i < len) {
+      if(s[i] == '(' || s[i] == '[' || s[i] == '{') {
+        myStack.push(s[i]);
+      } else {
+        if(myStack.empty()) return false;
+        if(myMap[s[i]] == myStack.top()) myStack.pop();
+        else return false;
+      }
+      i++;
+    }
+    return myStack.empty();
+  }
+};
+
+// Javascript Solution
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+  const len = s.length;
+  if((len % 2) !== 0) return false;
+
+  const obj = { ')': '(', ']': '[', '}': '{' };
+  const myStack = [];
+  let i = 0;
+
+  while(i < len) {
+    if(s[i] === '(' || s[i] === '[' || s[i] === '{') {
+      myStack.push(s[i]);
+    } else {
+      const size = myStack.length;
+      if(size === 0) return false;
+      if(obj[s[i]] === myStack[size - 1]) myStack.pop();
+      else return false;
+    }
+    i++;
+  }
+  return myStack.length === 0;
+};
