@@ -1,0 +1,55 @@
+// C++ Solution
+
+class Solution {
+public:
+  int characterReplacement(string s, int k) {
+    int result = 0; 
+    vector<int> freq(26, 0);
+    int maxFreq = 0;
+
+    int i = 0;
+    int j = 0;
+    int len = s.size();
+    while(j < len) {
+      freq[s[j] - 'A']++;
+      maxFreq = max(maxFreq, freq[s[j] - 'A']);
+
+      while((j - i + 1) - maxFreq > k) {
+         freq[s[i] - 'A']--;
+         i++;
+      }
+      result = max(result, j - i + 1);
+      j++;
+    }
+    return result;
+  }
+};
+
+// Javascript Solution
+
+/**
+* @param {string} s
+* @param {number} k
+* @return {number}
+*/
+var characterReplacement = function(s, k) {
+  let result = 0;
+  const freq = new Array(26).fill(0);
+  let maxFreq = 0;
+  
+  let i = 0;
+  let j = 0;
+  const len = s.length;
+  while(j < len) {
+    freq[s[j].charCodeAt(0) - 'A'.charCodeAt(0)]++;
+    maxFreq = maxFreq < freq[s[j].charCodeAt(0) - 'A'.charCodeAt(0)] ? freq[s[j].charCodeAt(0) - 'A'.charCodeAt(0)] : maxFreq;
+
+    while((j - i + 1) - maxFreq > k) {
+      freq[s[i].charCodeAt(0) - 'A'.charCodeAt(0)]--;
+      i++;
+    }
+    result = result < (j - i + 1) ? (j - i + 1) : result;
+    j++;
+  }
+  return result;
+};
