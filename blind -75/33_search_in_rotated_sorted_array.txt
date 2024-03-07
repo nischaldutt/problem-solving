@@ -1,0 +1,88 @@
+// C++
+// Time: O(logn)
+// Space: O(1)
+
+class Solution {
+public:
+  int binarySearch(vector<int>& nums, int start, int end, int target) {
+    while(start <= end) {
+      int mid = start + ((end - start) / 2);
+      if(nums[mid] == target) return mid;
+      if(nums[mid] < target) start = mid + 1;
+      else end = mid - 1;
+    }
+    return -1;
+  }
+
+public:
+  int findMin(vector<int>& nums, int len) {
+    int start = 0;
+    int end = len - 1;
+
+    while(start <= end) {
+      if(nums[start] <= nums[end]) return start;
+      int mid = start + ((end - start) / 2);
+      int prev = (mid - 1 + len) % len;
+      int next = (mid + 1) % len;
+
+      if(nums[mid] < nums[prev] && nums[mid] < nums[next]) return mid;
+      if(nums[start] <= nums[mid]) start = mid + 1;
+      if(nums[mid] <= nums[end]) end = mid - 1;
+    }
+    return 0;
+  }
+
+public:
+  int search(vector<int>& nums, int target) {
+    int len = nums.size();
+    int minIndex = findMin(nums, len);
+    if(nums[minIndex] == target) return minIndex;
+
+    int leftIndex = binarySearch(nums, 0, (minIndex - 1 + len) % len, target);
+    if (leftIndex != -1) return leftIndex;
+    int rightIndex = binarySearch(nums, (minIndex + 1) % len, len - 1, target);
+    return rightIndex;
+  }
+};
+
+// Javascript
+// Time: O(logn)
+// Space: O(1)
+
+function binarySearch(nums, start, end, target) {
+  while(start <= end) {
+    const mid = Math.floor(start + ((end - start) / 2));
+    if(nums[mid] === target) return mid;
+    if(nums[mid] < target) start = mid + 1;
+    else end = mid - 1;
+  }
+  return -1;
+}
+
+function findMin(nums, len) {
+  let start = 0;
+  let end = len - 1;
+
+  while(start <= end) {
+    if(nums[start] <= nums[end]) return start;
+    const mid = Math.floor(start + ((end - start) / 2));
+    const prev = (mid - 1 + len) % len;
+    const next = (mid + 1) % len;
+
+    if(nums[mid] < nums[prev] && nums[mid] < nums[next]) return mid;
+    if(nums[start] <= nums[mid]) start = mid + 1;
+    if(nums[mid] <= nums[end]) end = mid -1;
+  }
+  return 0;
+}
+
+var search = function(nums, target) {
+  const len = nums.length;
+  const minIndex = findMin(nums, len);
+  if(nums[minIndex] === target) return minIndex;
+
+  const leftIndex = binarySearch(nums, 0, (minIndex - 1 + len) % len, target);
+  if(-1 !== leftIndex) return leftIndex;
+  const rightIndex = binarySearch(nums, (minIndex + 1) % len, len - 1, target);
+  return rightIndex;
+};
