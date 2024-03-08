@@ -1,0 +1,59 @@
+// C++
+// Time: O(n)
+// Space: O(1)
+
+/**
+* Definition for singly-linked list.
+* struct ListNode {
+*     int val;
+*     ListNode *next;
+*     ListNode() : val(0), next(nullptr) {}
+*     ListNode(int x) : val(x), next(nullptr) {}
+*     ListNode(int x, ListNode *next) : val(x), next(next) {}
+* };
+*/
+class Solution {
+public:
+  ListNode* reverseList(ListNode* head) {
+    ListNode* prev = NULL;
+    ListNode* curr = head;
+    ListNode* temp;
+
+    while(curr != NULL) {
+      temp = curr->next;
+      curr->next = prev;
+      prev = curr;
+      curr = temp;
+    }
+    return prev;
+  }
+};
+
+// Javascript
+// Time: O(n)
+// Space: O(1)
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+  let prev = null;
+  let curr = head;
+  let temp;
+
+  while(curr !== null) {
+    temp = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = temp;
+  }
+  return prev;
+};
