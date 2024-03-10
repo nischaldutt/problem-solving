@@ -1,0 +1,129 @@
+// C++
+// Time: O(n)
+// Space: O(1)
+
+/**
+* Definition for singly-linked list.
+* struct ListNode {
+*     int val;
+*     ListNode *next;
+*     ListNode() : val(0), next(nullptr) {}
+*     ListNode(int x) : val(x), next(nullptr) {}
+*     ListNode(int x, ListNode *next) : val(x), next(next) {}
+* };
+*/
+class Solution {
+public:
+  ListNode* findMid(ListNode* head) {
+    ListNode* slow = head;
+    ListNode* fast = head->next;
+
+    while(fast != NULL && fast->next != NULL) {
+      slow = slow->next;
+      fast = fast->next->next;
+    }
+
+    ListNode* mid = slow->next;
+    slow->next = NULL;
+    return mid;
+  }
+
+public:
+  ListNode* reverseList(ListNode* head) {
+    ListNode* prev = NULL;
+    ListNode* curr = head;
+    ListNode* temp;
+
+    while(curr != NULL) {
+      temp = curr->next;
+      curr->next = prev;
+      prev = curr;
+      curr = temp;
+    }
+    return prev;
+  }
+
+public:
+  void mergeLists(ListNode* list1, ListNode* list2) {
+    while(list2 != NULL) {
+      ListNode* list1Temp = list1->next;
+      list1->next = list2;
+      ListNode* list2Temp = list2->next;
+      list2->next = list1Temp;
+      list1 = list1Temp;
+      list2 = list2Temp;
+    }
+  }
+
+public:
+  void reorderList(ListNode* head) {
+    if(head->next == NULL) return;
+    ListNode* mid = findMid(head);
+    ListNode* list1 = head;
+    ListNode* list2 = reverseList(mid);
+    mergeLists(list1, list2); 
+  }
+};
+
+// Javascript
+// Time: O(n)
+// Space: O(1)
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ */
+
+function findMid(head) {
+  let slow = head;
+  let fast = head.next;
+
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  let mid = slow.next;
+  slow.next = null;
+  return mid;
+}
+
+function reverseList(head) {
+  let prev = null;
+  let curr = head;
+  let temp;
+
+  while (curr !== null) {
+    temp = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = temp;
+  }
+  return prev;
+}
+
+function mergeLists(list1, list2) {
+  while (list2 !== null) {
+    let list1Temp = list1.next;
+    list1.next = list2;
+    let list2Temp = list2.next;
+    list2.next = list1Temp;
+    list1 = list1Temp;
+    list2 = list2Temp;
+  }
+}
+
+var reorderList = function (head) {
+  if (head.next === null) return;
+  let mid = findMid(head);
+  let list1 = head;
+  let list2 = reverseList(mid);
+  mergeLists(list1, list2);
+};
