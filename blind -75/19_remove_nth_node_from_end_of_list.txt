@@ -1,0 +1,74 @@
+// C++
+// Time: O(n)
+// Space: O(1)
+
+/**
+* Definition for singly-linked list.
+* struct ListNode {
+*     int val;
+*     ListNode *next;
+*     ListNode() : val(0), next(nullptr) {}
+*     ListNode(int x) : val(x), next(nullptr) {}
+*     ListNode(int x, ListNode *next) : val(x), next(next) {}
+* };
+*/
+class Solution {
+public:
+  ListNode* removeNthFromEnd(ListNode* head, int n) { 
+    if(head->next == NULL && n == 1) return NULL;
+    ListNode* left = head;
+    ListNode* right = head;
+    int count = 0;
+    while(count != n) {
+      right = right->next;
+      count++;
+    }
+    if(right == NULL) return head->next;
+    ListNode* temp = left;
+
+    while(right != NULL) {
+      temp = left;
+      left = left->next;
+      right = right->next;
+    }
+    temp->next = left->next;
+    return head;
+  }
+};
+
+// Javascript
+// Time: O(n)
+// Space: O(1)
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+  if (!head.next && n === 1) return null;
+  let left = head;
+  let right = head;
+  let count = 0;
+  while (count !== n) {
+    right = right.next;
+    count++;
+  }
+  if (!right) return head.next;
+  let temp = left;
+  while (right) {
+    temp = left;
+    left = left.next;
+    right = right.next;
+  }
+  temp.next = left.next;
+  return head;
+};
