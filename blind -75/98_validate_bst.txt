@@ -1,0 +1,56 @@
+// C++
+// Time: O(n)
+// Space: O(n)
+
+/**
+* Definition for a binary tree node.
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+*     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+*     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+* };
+*/
+class Solution {
+public:
+  bool isValidBST(TreeNode* root) {
+    return isValid(root, LONG_MIN, LONG_MAX);
+  }
+
+public:
+  bool isValid(TreeNode* node, long leftLimit, long rightLimit) {
+    if(node == NULL) return true;
+    if(leftLimit < node->val && node->val < rightLimit) 
+      return isValid(node->left, leftLimit, node->val) && isValid(node->right, node->val, rightLimit);
+    return false;
+  }
+};
+
+// Javascript
+// Time: O(n)
+// Space: O(n)
+
+/**
+* Definition for a binary tree node.
+* function TreeNode(val, left, right) {
+*     this.val = (val===undefined ? 0 : val)
+*     this.left = (left===undefined ? null : left)
+*     this.right = (right===undefined ? null : right)
+* }
+*/
+/**
+* @param {TreeNode} root
+* @return {boolean}
+*/
+var isValidBST = function(root) {
+  return isValid(root, -Infinity, Infinity);
+};
+
+function isValid(node, leftLimit, rightLimit) {
+  if(node === null) return true;
+  if(leftLimit < node.val && node.val < rightLimit)
+    return isValid(node.left, leftLimit, node.val) && isValid(node.right, node.val, rightLimit);
+  return false;
+}

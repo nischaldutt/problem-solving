@@ -1,0 +1,76 @@
+// C++
+// Time: O(n)
+// Space: O(n)
+
+/**
+* Definition for a binary tree node.
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+*     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+*     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+* };
+*/
+class Solution {
+public:
+  vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> result;
+    if(root == NULL) return result;
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while(!q.empty()) {
+      vector<int> levelVector;
+      int len = q.size();
+
+      for(int i = 0; i < len; i++) {
+        TreeNode* node = q.front();
+        levelVector.push_back(node->val);
+        if(node->left) q.push(node->left);
+        if(node->right) q.push(node->right);
+        q.pop();
+      }
+      result.push_back(levelVector);
+    }
+    return result;
+  }
+};
+
+// Javascript
+// Time: O(n)
+// Space: O(n)
+/**
+* Definition for a binary tree node.
+* function TreeNode(val, left, right) {
+*     this.val = (val===undefined ? 0 : val)
+*     this.left = (left===undefined ? null : left)
+*     this.right = (right===undefined ? null : right)
+* }
+*/
+/**
+* @param {TreeNode} root
+* @return {number[][]}
+*/
+var levelOrder = function(root) {
+  const result = [];
+  if(root == null) return result;
+
+  const q = [root];
+  while(q.length) {
+    const levelVector = [];
+    const len = q.length;
+    
+    for(let i = 0; i < len; i++) {
+      const node = q[0];
+      levelVector.push(node.val);
+      if(node.left) q.push(node.left);
+      if(node.right) q.push(node.right);
+      q.shift();
+    }
+    result.push(levelVector);
+  }
+  return result;
+};

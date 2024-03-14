@@ -1,0 +1,65 @@
+// C++
+// Time: O(root * subRoot)
+// Space: O(root)
+
+/**
+* Definition for a binary tree node.
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+*     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+*     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+* };
+*/
+class Solution {
+public:
+  bool isSameTree(TreeNode* root, TreeNode* subRoot) {
+    if(root == NULL && subRoot == NULL) return true;
+    if(root == NULL || subRoot == NULL) return false;
+    if(root->val == subRoot->val) 
+      return isSameTree(root->left, subRoot->left) && isSameTree(root->right, subRoot->right);
+    else return false;
+  }
+
+public:
+  bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+    if(root == NULL && subRoot == NULL) return true;
+    if(root == NULL || subRoot == NULL) return false;
+    if((root->val == subRoot->val) && (isSameTree(root, subRoot) == true)) return true;
+    else return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+  }
+};
+
+// Javascript
+// Time: O(root * subRoot)
+// Space: O(root)
+/**
+* Definition for a binary tree node.
+* function TreeNode(val, left, right) {
+*     this.val = (val===undefined ? 0 : val)
+*     this.left = (left===undefined ? null : left)
+*     this.right = (right===undefined ? null : right)
+* }
+*/
+/**
+* @param {TreeNode} root
+* @param {TreeNode} subRoot
+* @return {boolean}
+*/
+
+function isSameTree(root, subRoot) {
+  if(root === null && subRoot === null) return true;
+  if(root === null || subRoot === null) return false;
+  if(root.val === subRoot.val)
+    return isSameTree(root.left, subRoot.left) && isSameTree(root.right, subRoot.right);
+  return false;
+}
+
+var isSubtree = function(root, subRoot) {
+  if(root === null && subRoot === null) return true;
+  if(root === null || subRoot === null) return false;
+  if((root.val === subRoot.val) && (isSameTree(root, subRoot) === true)) return true;
+  else return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+};
