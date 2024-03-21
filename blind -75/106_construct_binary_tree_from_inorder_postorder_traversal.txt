@@ -1,0 +1,75 @@
+// C++
+// Time: O(n)
+// Space: O(n)
+
+/**
+* Definition for a binary tree node.
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+*     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+*     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+* };
+*/
+class Solution {
+public:
+  TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+    unordered_map<int, int> myMap;
+    int len = inorder.size();
+    for(int i = 0; i < len; i++) myMap[inorder[i]] = i;
+    return build(postorder, 0, postorder.size() - 1, inorder, 0, inorder.size() - 1, myMap);
+  }
+
+public:
+  TreeNode* build(vector<int>& postorder, int postStart, int postEnd, vector<int>& inorder, int inStart, int inEnd, unordered_map<int, int>& myMap) {
+    if(postStart > postEnd || inStart > inEnd) return NULL;
+
+    TreeNode* root = new TreeNode(postorder[postEnd]);
+    int mid = myMap[root->val];
+    int leftNums = mid - inStart;
+
+    root->left = build(postorder, postStart, postStart + leftNums - 1, inorder, inStart, mid - 1, myMap);
+    root->right = build(postorder, postStart + leftNums, postEnd - 1, inorder, mid + 1, inEnd, myMap);
+    return root;
+  }
+};
+
+// Javascript
+// Time: O(n)
+// Space: O(n)
+
+/**
+* Definition for a binary tree node.
+* function TreeNode(val, left, right) {
+*     this.val = (val===undefined ? 0 : val)
+*     this.left = (left===undefined ? null : left)
+*     this.right = (right===undefined ? null : right)
+* }
+*/
+/**
+* @param {number[]} inorder
+* @param {number[]} postorder
+* @return {TreeNode}
+*/
+var buildTree = function(inorder, postorder) {
+  const obj = {};
+  const len = inorder.length;
+  for(let i = 0; i < len; i++) {
+    if(obj[inorder[i]] === undefined) obj[inorder[i]] = i;
+  }
+  return build(postorder, 0, postorder.length - 1, inorder, 0, inorder.length - 1, obj);
+};
+
+function build(postorder, postStart, postEnd, inorder, inStart, inEnd, obj) {
+  if(postStart > postEnd || inStart > inEnd) return null;
+
+  const root = new TreeNode(postorder[postEnd]);
+  const mid = obj[root.val];
+  const leftNums = mid - inStart;
+
+  root.left = build(postorder, postStart, postStart + leftNums - 1, inorder, inStart, mid - 1, obj);
+  root.right = build(postorder, postStart + leftNums, postEnd - 1, inorder, mid + 1, inEnd, obj);
+  return root;
+}
