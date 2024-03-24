@@ -1,0 +1,62 @@
+// C++
+// Time: O(logn)
+// Space: O(1)
+
+class Solution {
+public:
+  int findPeakElement(vector<int>& nums) {
+    int len = nums.size();
+    if(len == 1) return 0;
+
+    int start = 0;
+    int end = len - 1;
+    int mid = 0;
+
+    while(start <= end) {
+      mid = start + ((end - start) / 2);
+
+      if(mid == 0) {
+        if(nums[0] < nums[1]) return 1;
+        else return 0;
+      }
+      if(mid == len - 1) {
+        if(nums[len - 2] < nums[len - 1]) return len - 1;
+        else return len - 2;
+      }
+      if(nums[mid - 1] < nums[mid] && nums[mid] > nums[mid + 1]) return mid;
+      else if(nums[mid] < nums[mid + 1]) start = mid + 1;
+      else end = mid - 1;
+    }
+    return mid;
+  }
+};
+
+// Javascript
+// Time: O(logn)
+// Space: O(1)
+
+var findPeakElement = function(nums) {
+    var len = nums.length;
+    if(len === 1) return 0;
+
+    var start = 0;
+    var end = len - 1;
+    var mid = 0;
+
+    while(start <= end) {
+        mid = start + Math.floor((end - start) / 2);
+
+        if(mid === 0) {
+            if(nums[0] < nums[1]) return 1;
+            else return 0;
+        }
+        if(mid === len - 1) {
+            if(nums[len - 2] < nums[len - 1]) return len - 1;
+            else return len - 2;
+        }
+        if(nums[mid - 1] < nums[mid] && nums[mid] > nums[mid + 1]) return mid;
+        else if(nums[mid] < nums[mid + 1]) start = mid + 1;
+        else end = mid - 1;
+    }
+    return mid;
+};
