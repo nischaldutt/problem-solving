@@ -1,0 +1,27 @@
+// C++
+// Time: O(n * amount)
+// Space: O(n * amount)
+
+int static matrix[13][10001];
+
+class Solution {
+public:
+  int coinChange(vector<int>& coins, int amount) {
+    memset(matrix, -1, sizeof(matrix));
+    int result = minCoins(coins, amount, coins.size());
+    if(result == INT_MAX - 1) return -1;
+    else return result;
+  }
+
+public:
+  int minCoins(vector<int>& coins, int sum, int n) {
+    if(matrix[n][sum] != -1) return matrix[n][sum];
+    if(sum == 0) return 0;
+    if(n == 0) return INT_MAX - 1;
+    
+    if(coins[n-1] <= sum) 
+      matrix[n][sum] = min(1 + minCoins(coins, sum - coins[n-1], n), minCoins(coins, sum, n-1));
+    else matrix[n][sum] = minCoins(coins, sum, n-1);
+    return matrix[n][sum];
+  }
+};

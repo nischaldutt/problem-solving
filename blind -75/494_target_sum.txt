@@ -1,0 +1,34 @@
+// C++
+// Time: O(n * target)
+// Space: O(n * target)
+
+int static matrix[22][1002];
+
+class Solution {
+public:
+  int findTargetSumWays(vector<int>& nums, int target) {
+    memset(matrix, -1, sizeof(matrix));
+    int sum = 0;
+    for(int x: nums) sum += x;
+
+    if(sum < target || (sum + target) % 2 != 0 || sum + target < 0) return 0;
+    
+    int s1 = (sum + target) / 2;
+    int zeroes = count(nums.begin(), nums.end(), 0);
+    if(zeroes > 0) return countSubsetSum(nums, s1, nums.size()) * pow(2, zeroes);
+    else return countSubsetSum(nums, s1, nums.size());
+  }
+
+public:
+  int countSubsetSum(vector<int>& nums, int sum, int n) {
+    if(matrix[n][sum] != -1) return matrix[n][sum];
+    if(sum == 0) return 1;
+    if(n == 0) return 0;
+    if(nums[n-1] == 0) return countSubsetSum(nums, sum, n-1);
+
+    if(nums[n-1] <= sum) {
+      matrix[n][sum] = countSubsetSum(nums, sum - nums[n-1], n-1) + countSubsetSum(nums, sum, n-1);
+    } else matrix[n][sum] = countSubsetSum(nums, sum, n-1);
+    return matrix[n][sum];
+  }
+};
