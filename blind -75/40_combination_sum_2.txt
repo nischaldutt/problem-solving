@@ -1,0 +1,31 @@
+// c++
+// time: O(2^n)
+// space: O(n)
+
+class Solution {
+public:
+  void dfs(int start, vector<int>& candidates, int target, int total, vector<int>& curr, vector<vector<int>>& result) {
+    if(total == target) {
+      result.push_back(curr);
+      return;
+    }
+    if(start >= candidates.size() || total > target) return;
+
+    for(int i = start; i < candidates.size(); i++) {
+      if(i > start && candidates[i] == candidates[i - 1]) continue;
+      curr.push_back(candidates[i]);
+      dfs(i + 1, candidates, target, total + candidates[i], curr, result);
+      curr.pop_back();
+    }
+  }
+
+public:
+  vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+      vector<vector<int>> result;
+      vector<int> curr;
+
+      sort(candidates.begin(), candidates.end());
+      dfs(0, candidates, target, 0, curr, result);
+      return result;
+  }
+};

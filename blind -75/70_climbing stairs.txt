@@ -1,0 +1,19 @@
+// c++
+// time: O(n)
+// space: O(n)
+
+class Solution {
+public:
+  int dfs(int n , int i, vector<int>& matrix) {
+    if(i > n) return 0;
+    if(i == n) return matrix[i] = 1;
+    if(matrix[i] != -1) return matrix[i];
+    return matrix[i] = dfs(n, i+1, matrix) + dfs(n, i+2, matrix);
+  }
+
+public:
+  int climbStairs(int n) {
+    vector<int> matrix(n+1, -1);
+    return dfs(n, 0, matrix);
+  }
+};
