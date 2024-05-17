@@ -1,0 +1,64 @@
+// class Solution {
+// public:
+//   int numDecodings(string s) {
+//     // Handle edge cases where string is empty or starts with '0'
+//     if (s.empty() || s[0] == '0') return 0;
+//     return decode(s, 0);
+//   }
+
+// private:
+//   int decode(const string& s, int index) {
+//     // Base case: successfully reached the end of the string
+//     if (index == s.size()) return 1;
+
+//     // If the current character is '0', it cannot be decoded
+//     if (s[index] == '0') return 0;
+
+//     // Decode single digit
+//     int ways = decode(s, index + 1);
+
+//     // Decode two digits, ensuring it is a valid number between 10 and 26
+//     if (index + 1 < s.size() && (s[index] == '1' || (s[index] == '2' && s[index + 1] <= '6'))) {
+//         ways += decode(s, index + 2);
+//     }
+//     return ways;
+//   }
+// };
+
+
+// class Solution {
+// public:
+//   int numDecodings(string s) {
+//     if((s[0] - '0') == 0) return 0;
+//     if(s.size() == 0 || (s.size() == 1 && (s[0] - '0') != 0)) return 1;
+    
+//     int res = numDecodings(s.substr(1));
+//     if(s.size() >= 2 && ((s[0] - '0') == 1 || ((s[0] - '0') == 2 && (s[1] - '0') <= 6))) res += numDecodings(s.substr(2));
+//     return res;
+//   }
+// };
+
+
+class Solution {
+public:
+    int numDecodings(string s) {
+        vector<int> memo(s.size(), -1); // Initialize a memoization vector
+        return decode(s, 0, memo);
+    }
+    
+private:
+    int decode(const string& s, int index, vector<int>& memo) {
+        if (index == s.size()) return 1; // Successfully reached the end of the string
+        if (s[index] == '0') return 0; // Strings starting with '0' are invalid
+        if (memo[index] != -1) return memo[index]; // Return memoized result
+
+        int ways = decode(s, index + 1, memo); // Single digit decoding
+
+        if (index + 1 < s.size() && (s[index] == '1' || (s[index] == '2' && s[index + 1] <= '6'))) {
+            ways += decode(s, index + 2, memo); // Two digit decoding
+        }
+        
+        memo[index] = ways; // Memoize the result
+        return ways;
+    }
+};
