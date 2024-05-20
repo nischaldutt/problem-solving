@@ -1,3 +1,22 @@
+time: O(n^2)
+space: O(1)
+
+class Solution {
+public:
+  int maxProduct(vector<int>& nums) {
+    int res = INT_MIN;
+    int n = nums.size();
+    for(int i=0;i<n;i++) {
+      int product = 1;
+      for(int j=i;j<n;j++) {
+        product *= nums[j];
+        res = max(res, product);
+      }
+    }
+    return res;
+  }
+};
+
 time: O(n)
 space: O(1)
 
