@@ -1,0 +1,28 @@
+time: O(n^2)
+space: O(n)
+
+class Solution {
+public:
+  unordered_set<string> myset;
+  int dp[301];
+
+  bool wordBreak(string s, vector<string>& wordDict) {
+    memset(dp, -1, sizeof(dp));
+    for(string x: wordDict) myset.insert(x);
+    return solve(0, s);
+  }
+
+  bool solve(int i, string& s) {
+    if(i >= s.size()) return dp[i] = true;
+
+    if(dp[i] != -1) return dp[i];
+
+    if(myset.find(s) != myset.end()) return dp[i] = true;
+
+    for(int l=1;l<=s.size();l++) {
+      if((myset.find(s.substr(i, l)) != myset.end()) && solve(i+l, s))
+        return dp[i] = true;
+    }
+    return dp[i] = false; 
+  }
+};
