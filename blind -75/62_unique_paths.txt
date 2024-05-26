@@ -1,0 +1,72 @@
+time: O(n*m)
+space: O(n*m)
+
+class Solution {
+public: 
+  long t[101][101];
+
+  int uniquePaths(int m, int n) {
+    memset(t, -1, sizeof(t));
+    return solve(0, 0, m, n);
+  }
+
+  long solve(int i, int j, int m, int n) {
+    if(i == m-1 && j == n-1) return 1;
+    if(t[i][j] != -1) return t[i][j];
+    int res1 = 0;
+    if(i < m) res1 = solve(i+1, j, m, n);
+    int res2 = 0;
+    if(j < n) res2 = solve(i, j+1, m ,n);
+    return t[i][j] = res1 + res2;
+  }
+};
+
+time: O(n*m)
+space: O(n*m)
+
+class Solution {
+public:
+  int uniquePaths(int m, int n) {
+    long t[101][101];
+    memset(t, -1, sizeof(t));
+
+    for(int i=0;i<m;i++) {
+      for(int j=0;j<n;j++) {
+        if(i == 0 && j == 0) t[i][j] = 1;
+        else {
+          int res1 = 0;
+          int res2 = 0;
+          if(i>0) res1 = t[i-1][j];
+          if(j>0) res2 = t[i][j-1];
+          t[i][j] = res1 + res2;
+        }
+      }
+    }
+    return t[m-1][n-1];
+  }
+};
+
+time: O(n*m)
+space: O(n)
+
+class Solution {
+public:
+  int uniquePaths(int m, int n) {
+    vector<int> prev(n, 0);
+    for(int i=0;i<m;i++) {
+      vector<int> curr(n, 0);
+      for(int j=0;j<n;j++) {
+        if(i == 0 && j == 0) curr[j] = 1;
+        else {
+          int res1 = 0;
+          int res2 = 0;
+          if(i>0) res1 = prev[j];
+          if(j>0) res2 = curr[j-1];
+          curr[j] = res1 + res2;
+        }
+      }
+      prev = curr;
+    }
+    return prev[n-1];
+  }
+};
