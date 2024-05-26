@@ -1,0 +1,26 @@
+time: O(n*n)
+space: O(n*n)
+
+class Solution {
+public:
+  int dp[2501][2501];
+  
+  int lengthOfLIS(vector<int>& nums) {
+    memset(dp, -1, sizeof(dp));
+    return solve(0, -1, nums, nums.size());
+  }
+
+  int solve(int i, int prevInd, vector<int>& nums, int n) {
+    if(i >= n) return 0;
+    if(prevInd != -1 && dp[i][prevInd] != -1) return dp[i][prevInd];
+
+    int take = 0;
+    int skip = 0;
+    if(prevInd == -1 || nums[prevInd] < nums[i]) {
+      take = 1 + solve(i+1, i, nums, nums.size());
+    }
+    skip = solve(i+1, prevInd, nums, nums.size());
+    if(prevInd != -1) dp[i][prevInd] = max(take, skip);
+    return max(take, skip);
+  }
+};
