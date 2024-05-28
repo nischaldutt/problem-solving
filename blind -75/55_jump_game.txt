@@ -1,0 +1,27 @@
+time: O(n*n)
+space: O(n)
+
+class Solution {
+public:
+  int t[10001]; // Memoization table
+
+  // Function to determine if we can jump to the last index
+  bool canJump(vector<int>& nums) {
+    memset(t, -1, sizeof(t)); // Initialize memoization table with -1
+    return solve(0, nums); // Start solving from index 0
+  }
+
+  // Recursive helper function to determine if we can reach the end from startIndex
+  bool solve(int startIndex, vector<int>& nums) {
+    if(startIndex == nums.size() - 1) return t[startIndex] = true; // Base case: reached the last index
+    if(t[startIndex] != -1) return t[startIndex]; // If already computed, return the stored result
+
+    // Try all possible jumps from the current index
+    for(int i = 0; i < nums[startIndex]; i++) {
+      // If we can reach the end from the next index, return true
+      if(solve(startIndex + i + 1, nums)) return t[startIndex] = true;
+    }
+    // If no jump leads to the end, return false
+    return t[startIndex] = false;
+  }
+};
